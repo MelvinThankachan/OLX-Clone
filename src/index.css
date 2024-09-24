@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.footer-image {
+  @apply h-16;
+}
+
+.content {
+  @apply flex flex-grow items-center mx-auto;
+}
