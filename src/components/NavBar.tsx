@@ -7,7 +7,7 @@ import Logo from "../assets/icons/Logo";
 
 const NavBar = () => {
   return (
-    <nav className="sticky top-0 left-0 flex p-4 gap-4 justify-between w-screen bg-secondary z-50">
+    <nav className="sticky top-0 left-0 flex p-4 gap-4 justify-between w-screen bg-secondary z-10">
       <Link to="/">
         <Logo className="w-12" />
       </Link>
@@ -40,17 +40,20 @@ const NavBar = () => {
         <DownArrow className="w-6" />
       </div>
       <div className="flex items-center">
-        <span className="font-bold text-base underline hover:no-underline underline-offset-4 items ">
+        <Link
+          to={"/login"}
+          className="font-bold text-base underline hover:no-underline underline-offset-4 items cursor-pointer"
+        >
           Login
-        </span>
+        </Link>
       </div>
-      <div className="flex items-center relative">
+      <Link to={"/login"} className="flex items-center relative cursor-pointer">
         <button className="flex gap-2 items-center h-full px-4  font-bold text-md rounded-full bg-white border-4 border-secondary">
           <Add className="w-4" />
           SELL
         </button>
         <ButtonBorder className="absolute shadow-xl" />
-      </div>
+      </Link>
     </nav>
   );
 };

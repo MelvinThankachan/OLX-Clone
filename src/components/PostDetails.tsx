@@ -2,12 +2,12 @@ import { Navigate } from "react-router-dom";
 import { PostType } from "../misc/utils";
 
 type PostDetailsProps = {
-  post: PostType | null;
+  post: PostType | undefined;
 };
 const PostDetails = ({ post }: PostDetailsProps) => {
   console.log(post);
 
-  if (post === null) {
+  if (post === undefined) {
     return <Navigate to="/NotFound404" />;
   }
   return (

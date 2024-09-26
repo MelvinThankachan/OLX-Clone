@@ -1,11 +1,12 @@
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import NotFound404Page from "./pages/NotFound404Page";
+import PostDetailsPage from "./pages/PostDetailsPage";
 import {
   createBrowserRouter,
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-import PostPage from "./pages/PostPage";
 
 const appRoutes: RouteObject[] = [
   {
@@ -15,7 +16,11 @@ const appRoutes: RouteObject[] = [
   },
   {
     path: "/item/:postId/:postTitle",
-    element: <PostPage />,
+    element: <PostDetailsPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
 ];
 
