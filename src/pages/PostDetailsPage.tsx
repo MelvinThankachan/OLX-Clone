@@ -16,7 +16,8 @@ const PostDetailsPage = () => {
       );
       const data = await response.json();
       setPost(data);
-    } catch {
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
