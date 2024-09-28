@@ -13,3 +13,19 @@
 .post-details {
   @apply bg-white border rounded flex flex-col p-3 gap-3;
 }
+
+.form-label {
+  @apply block text-sm;
+}
+
+.form-input {
+  @apply border border-primary border-opacity-50 rounded py-2 px-3 focus:outline focus:outline-[#00a49f] min-w-96;
+}
+
+.form-section {
+  @apply border-y py-5 px-5 w-full flex flex-col justify-between gap-5;
+
+  h1 {
+    @apply text-xl font-bold;
+  }
+}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Add from "../assets/icons/Add";
 import ButtonBorder from "../assets/icons/ButtonBorder";
 import DownArrow from "../assets/icons/DownArrow";
@@ -6,15 +6,17 @@ import Lens from "../assets/icons/Lens";
 import Logo from "../assets/icons/Logo";
 import { useState } from "react";
 import LoginModal from "./LoginModal";
-import { useAuth } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 
 const NavBar = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const handleOpen = () => setIsModalOpen(!isModalOpen);
 
-  const { user } = useAuth();
+  const { user } = useAuthContext();
   const auth = getAuth();
+
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -84,7 +86,12 @@ const NavBar = () => {
           )}
         </div>
         <div
-          onClick={handleOpen}
+          onClick={() => {
+            if (!user) handleOpen();
+            else {
+              navigate("/create-post");
+            }
+          }}
           className="flex items-center relative cursor-pointer"
         >
           <button className="flex gap-2 items-center h-full px-4  font-bold text-md rounded-full bg-white border-4 border-secondary">

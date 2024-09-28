@@ -1,14 +1,14 @@
 import { Navigate } from "react-router-dom";
 import { PostType } from "../misc/utils";
-import AuthContext, { useAuth } from "../context/AuthContext";
-import { useContext } from "react";
+import { useAuthContext } from "../context/AuthContext";
 import PlaceholderImage from "../assets/images/PlaceholderImage";
 
 type PostDetailsProps = {
   post: PostType | undefined;
 };
 const PostDetails = ({ post }: PostDetailsProps) => {
-  const { user } = useAuth();
+  const { user } = useAuthContext();
+  console.log(user?.photoURL);
 
   if (post === undefined) {
     return <Navigate to="/NotFound404" />;
@@ -16,7 +16,7 @@ const PostDetails = ({ post }: PostDetailsProps) => {
   return (
     <div className="content bg-[#f2f4f5] w-full justify-center">
       <div className="flex flex-col lg:flex-row gap-3 w-screen p-5 max-w-screen-xl">
-        <div className="flex flex-col gap-3 min-w-[66%]">
+        <div className="flex flex-col gap-3 w-[66%]">
           <div className="post-details pb-10">
             <div className="bg-black w-full">
               <img
