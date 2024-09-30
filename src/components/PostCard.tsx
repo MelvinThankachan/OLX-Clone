@@ -1,24 +1,29 @@
 import { useState } from "react";
 import Heart from "../assets/icons/Heart";
-import { PostType } from "../misc/utils";
+import { formatDate, PostType } from "../misc/utils";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
-type PostProps = {
+type PostCardProps = {
   post: PostType;
 };
 
-const Post = ({ post }: PostProps) => {
+const PostCard = ({ post }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  console.log("Post ID from card: ", post.id);
+
   const slug = slugify(post.title, { lower: true, strict: true });
+  const postLink = `/item/${post.id}/${slug}`;
+  console.log(postLink);
+
   return (
     <Link
-      to={`/item/${post.id}/${slug}`}
+      to={postLink}
       className="p-3 border border-gray-300 rounded overflow-hidden flex flex-col"
     >
       <div className="relative">
         <img
-          src={post.image}
+          src={post.imageUrl}
           alt={post.title}
           className="w-full h-44 object-cover"
         />
@@ -42,7 +47,7 @@ const Post = ({ post }: PostProps) => {
               {post.category}
             </span>
             <span className="truncate font-light text-gray-500 text-sm">
-              {post.rating.rate} &#9733;
+              {formatDate(post.date)};
             </span>
           </div>
         </div>
@@ -51,4 +56,4 @@ const Post = ({ post }: PostProps) => {
   );
 };
 
-export default Post;
+export default PostCard;

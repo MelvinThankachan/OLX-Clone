@@ -1,10 +1,9 @@
-import AdsList from "../components/PostsGrid";
+import PostsGrid from "../components/PostsGrid";
 import Base from "../components/Base";
-
 const HomePage = () => {
   return (
     <Base>
-      <AdsList />
+      <PostsGrid />
     </Base>
   );
 };

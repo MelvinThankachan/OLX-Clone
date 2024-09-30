@@ -8,6 +8,7 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
+import PostsProvider from "./context/PostsContext.tsx";
 
 const appRoutes: RouteObject[] = [
   {
@@ -28,9 +29,11 @@ const appRoutes: RouteObject[] = [
 const appRouter = createBrowserRouter(appRoutes);
 
 const App = () => (
-  <AuthProvider>
-    <RouterProvider router={appRouter} />
-  </AuthProvider>
+  <PostsProvider>
+    <AuthProvider>
+      <RouterProvider router={appRouter} />
+    </AuthProvider>
+  </PostsProvider>
 );
 
 export default App;

@@ -1,23 +1,38 @@
 import React, { useState, useRef } from "react";
+import { storage } from "../firebase/setup";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Camera from "../assets/icons/Camera";
 import Close from "../assets/icons/Close";
 
-const ImageField: React.FC = () => {
+interface ImageFieldProps {
+  onImageUpload: (url: string) => void;
+}
+
+const ImageField: React.FC<ImageFieldProps> = ({ onImageUpload }) => {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleButtonClick = () => {
-    fileInputRef.current?.click(); // Trigger file input click
+    fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result as string); // Set the image URL to state
+        setImage(reader.result as string);
       };
-      reader.readAsDataURL(file); // Convert file to data URL
+      reader.readAsDataURL(file);
+
+      const storageRef = ref(storage, `images/${file.name}`);
+      await uploadBytes(storageRef, file);
+
+      const imageURL = await getDownloadURL(storageRef);
+      console.log("Image URL:", imageURL);
+      onImageUpload(imageURL);
     }
   };
 
@@ -29,7 +44,7 @@ const ImageField: React.FC = () => {
         accept="image/*"
         required
         ref={fileInputRef}
-        className="hidden" // Hide the file input
+        className="hidden"
         onChange={handleFileChange}
       />
       {!image ? (
@@ -52,7 +67,10 @@ const ImageField: React.FC = () => {
           />
           <div
             className="absolute top-2 right-2 px-1 py rounded bg-secondary bg-opacity-50 hover:scale-110 z-10 cursor-pointer"
-            onClick={() => setImage("")}
+            onClick={() => {
+              setImage(null);
+              onImageUpload("");
+            }}
           >
             <Close className="w-3" />
           </div>

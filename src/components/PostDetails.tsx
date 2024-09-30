@@ -1,18 +1,22 @@
-import { Navigate } from "react-router-dom";
-import { PostType } from "../misc/utils";
-import { useAuthContext } from "../context/AuthContext";
-import PlaceholderImage from "../assets/images/PlaceholderImage";
+import { Navigate, useParams } from "react-router-dom";
+import { usePostsContext } from "../context/PostsContext";
+import { formatDate, PostType } from "../misc/utils";
 
-type PostDetailsProps = {
-  post: PostType | undefined;
-};
-const PostDetails = ({ post }: PostDetailsProps) => {
-  const { user } = useAuthContext();
-  console.log(user?.photoURL);
+const PostDetails = () => {
+  const { postId } = useParams();
 
-  if (post === undefined) {
+  const { posts, loading } = usePostsContext();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  const post = posts.find((p: PostType) => p.id === postId);
+
+  if (!post) {
     return <Navigate to="/NotFound404" />;
   }
+
   return (
     <div className="content bg-[#f2f4f5] w-full justify-center">
       <div className="flex flex-col lg:flex-row gap-3 w-screen p-5 max-w-screen-xl">
@@ -20,7 +24,7 @@ const PostDetails = ({ post }: PostDetailsProps) => {
           <div className="post-details pb-10">
             <div className="bg-black w-full">
               <img
-                src={post.image}
+                src={post.imageUrl}
                 alt=""
                 className="h-[500px] w-full object-contain"
               />
@@ -36,26 +40,17 @@ const PostDetails = ({ post }: PostDetailsProps) => {
           <div className="post-details">
             <h1 className="font-bold text-4xl">₹ {post.price}</h1>
             <p>Get {post.title} at genuine price in your budget.</p>
-            <p>Posted on {post.rating.count}</p>
+            <p>Posted on {formatDate(post.date)}</p>
           </div>
           <div className="post-details">
             <h1 className="font-bold text-2xl">Posted by</h1>
             <div className="flex gap-3 items-center">
-              {user ? (
-                <>
-                  <img
-                    src={user.photoURL || ""}
-                    alt=""
-                    className="w-16 rounded-full"
-                  />
-                  <span className="">{user.displayName}</span>
-                </>
-              ) : (
-                <>
-                  <PlaceholderImage size={30} className="w-16 rounded-full" />
-                  <span className="">Unknown</span>
-                </>
-              )}
+              <img
+                src={post.userImage || ""}
+                alt=""
+                className="w-16 rounded-full"
+              />
+              <span className="">{post.userName}</span>
             </div>
             <div className="border border-primary rounded w-full">
               <button className="flex justify-center px-4 py-3 border-4 border-transparent font-semibold hover:border-primary w-full">

@@ -1,20 +1,20 @@
-import firebase from "firebase/compat/app";
+import { Timestamp } from "firebase/firestore";
 
 export type IconProps = {
   className: string;
 };
 
 export type PostType = {
-  id: number;
+  id: string;
   title: string;
-  price: number;
-  category: string;
   description: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
+  category: string;
+  price: number;
+  date: Date;
+  userId: string;
+  userName: string;
+  userImage: string;
+  imageUrl: string;
 };
 
 export type Links = {
@@ -22,13 +22,7 @@ export type Links = {
   links: string[];
 };
 
-export type PostType2 = {
-  id?: string;
-  title: string;
-  description: string;
-  date: Date | firebase.firestore.Timestamp;
-  price: number;
-  userId: string;
-  userName: string;
-  categrory: string;
+export const formatDate = (date: Timestamp | Date) => {
+  date = date instanceof Timestamp ? date.toDate() : new Date(date);
+  return new Intl.DateTimeFormat("en-IN").format(date);
 };

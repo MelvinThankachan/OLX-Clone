@@ -4,6 +4,7 @@ type TextareaFieldProps = {
   label: string;
   value: string;
   className?: string;
+  name: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
 };
@@ -13,6 +14,7 @@ const TextareaField = ({
   value,
   className = "",
   onChange,
+  name,
   rows = 4, // Default number of rows
 }: TextareaFieldProps) => {
   return (
@@ -22,6 +24,7 @@ const TextareaField = ({
         value={value}
         onChange={onChange}
         rows={rows}
+        name={name}
         className={`form-input ${className}`}
         required
       />
