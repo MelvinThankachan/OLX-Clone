@@ -1,50 +1,95 @@
-# React + TypeScript + Vite
+# OLX Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple OLX clone application built using React, TypeScript, Tailwind CSS, Vite, and Firebase. The app features a home page for browsing product listings, user authentication via Google, and a product posting feature.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Home Page**: Browse a list of product posts.
+- **Login Page**: User authentication using Google.
+- **Create Product Post**: Users can create and submit their own product listings.
+- **Post Details Page**: View details for individual product listings.
+- **Responsive Design**: Built with Tailwind CSS for a seamless user experience.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Superset of JavaScript that adds static types.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **Vite**: A fast build tool that provides a smooth development experience.
+- **Firebase**: Backend service for authentication and data storage.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+To run this project locally, follow these steps:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Clone the repository:
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+   ```bash
+   git clone https://github.com/MelvinThankachan/OLX-Clone.git
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+2. Navigate to the project directory:
+
+   ```bash
+   cd OLX-Clone
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Create a `.env` file in the root directory and add your Firebase configuration:
+
+   ```plaintext
+    VITE_FIREBASE_API_KEY=your_api_key_here
+    VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain_here
+    VITE_FIREBASE_PROJECT_ID=your_project_id_here
+    VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket_here
+    VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here
+    VITE_FIREBASE_APP_ID=your_app_id_here
+   ```
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and visit `http://localhost:5173`. (or the port specified in your terminal).
+
+## Usage
+
+Once the app is running, you can:
+
+- Navigate to the home page to view a list of product posts.
+- Use Google authentication to log in.
+- Create new product posts.
+- View details of individual posts.
+
+## Screenshots
+
+![OLX Clone](screenshots/olx-clone.gif)
+
+![Home Page](screenshots/home-page.png)
+
+![Login Page](screenshots/login-card.png)
+
+![Post Details Page](screenshots/post-details-page.png)
+
+![Create Post Page](screenshots/create-post-page.png)
+
+For more screenshots, please check the 'screenshots' folder.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Acknowledgements
+
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite](https://vitejs.dev/)
+- [Firebase](https://firebase.google.com/)
