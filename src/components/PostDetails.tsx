@@ -1,6 +1,7 @@
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { usePostsContext } from "../context/PostsContext";
 import { formatDate, PostType } from "../misc/utils";
+import NotFound from "./NotFound";
 
 const PostDetails = () => {
   const { postId } = useParams();
@@ -14,8 +15,10 @@ const PostDetails = () => {
   const post = posts.find((p: PostType) => p.id === postId);
 
   if (!post) {
-    return <Navigate to="/NotFound404" />;
+    return <NotFound />;
   }
+
+  console.log(post);
 
   return (
     <div className="content bg-[#f2f4f5] w-full justify-center">

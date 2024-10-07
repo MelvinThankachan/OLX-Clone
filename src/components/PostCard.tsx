@@ -13,8 +13,8 @@ const PostCard = ({ post }: PostCardProps) => {
   console.log("Post ID from card: ", post.id);
 
   const slug = slugify(post.title, { lower: true, strict: true });
-  const postLink = `/item/${post.id}/${slug}`;
-  console.log(postLink);
+const postLink = `/item/${post.id}/${slug}`;
+console.log(postLink);
 
   return (
     <Link

@@ -24,6 +24,10 @@ const appRoutes: RouteObject[] = [
     path: "/create-post",
     element: <CreatePostPage />,
   },
+  {
+    path: "/NotFound404",
+    element: <NotFound404Page />,
+  },
 ];
 
 const appRouter = createBrowserRouter(appRoutes);

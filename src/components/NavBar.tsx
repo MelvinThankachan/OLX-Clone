@@ -65,7 +65,10 @@ const NavBar = () => {
           {user ? (
             <>
               <img
-                src={user.photoURL || ""}
+                src={
+                  user.photoURL ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfBcPHzBjqWRUL7QeEluahJrsa56i5ulJ0_Q&s"
+                }
                 alt="User Profile"
                 className="w-8 h-8 rounded-full"
               />

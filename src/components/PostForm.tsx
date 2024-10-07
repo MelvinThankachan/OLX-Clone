@@ -6,7 +6,9 @@ import InputField from "./InputField";
 import TextareaField from "./TextAreaField";
 import { useAuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { usePostsContext } from "../context/PostsContext";
 import slugify from "slugify";
+// import slugify from "slugify";
 
 export type FormData = {
   title: string;
@@ -18,6 +20,7 @@ export type FormData = {
 
 const PostForm: React.FC = () => {
   const { user } = useAuthContext();
+  const { fetchPosts } = usePostsContext();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     title: "",
@@ -63,7 +66,9 @@ const PostForm: React.FC = () => {
         price: "",
         imageUrl: "",
       });
-      navigate(
+      await fetchPosts();
+
+      await navigate(
         `/item/${docRef.id}/${slugify(title, { lower: true, strict: true })}`
       );
     } catch (e) {
@@ -117,12 +122,22 @@ const PostForm: React.FC = () => {
           </div>
           <div className="form-section">
             <div>
-              <button
-                type="submit"
-                className="p-3 rounded text-sm font-semibold bg-primary bg-opacity-10 transition-all duration-300 hover:bg-opacity-15"
-              >
-                Post now
-              </button>
+              {formData.imageUrl ? (
+                <button
+                  type="submit"
+                  className="p-3 rounded text-sm font-semibold bg-primary bg-opacity-10 transition-all duration-300 hover:bg-opacity-15"
+                >
+                  Post now
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled
+                  className="p-3 rounded text-sm font-semibold bg-primary bg-opacity-10 transition-all duration-300 hover:bg-opacity-15"
+                >
+                  Post now
+                </button>
+              )}
             </div>
           </div>
         </div>

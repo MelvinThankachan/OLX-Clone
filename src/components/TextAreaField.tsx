@@ -15,7 +15,7 @@ const TextareaField = ({
   className = "",
   onChange,
   name,
-  rows = 4, // Default number of rows
+  rows = 4,
 }: TextareaFieldProps) => {
   return (
     <div className="">

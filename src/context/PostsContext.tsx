@@ -1,3 +1,6 @@
+import { db } from "../firebase/setup";
+import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import { PostType } from "../misc/utils";
 import React, {
   createContext,
   useEffect,
@@ -5,14 +8,12 @@ import React, {
   ReactNode,
   useContext,
 } from "react";
-import { db } from "../firebase/setup";
-import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
-import { PostType } from "../misc/utils";
 
 type PostsContextType = {
   posts: PostType[];
   loading: boolean;
   error: string | null;
+  fetchPosts: () => void;
 };
 
 export const PostsContext = createContext<PostsContextType | undefined>(
@@ -24,30 +25,30 @@ const PostsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const snapshot: QuerySnapshot = await getDocs(collection(db, "posts"));
+      const postsData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as PostType[];
+
+      setPosts(postsData);
+    } catch (err) {
+      setError("Failed to fetch posts");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      try {
-        const snapshot: QuerySnapshot = await getDocs(collection(db, "posts"));
-        const postsData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as PostType[];
-
-        setPosts(postsData);
-      } catch (err) {
-        setError("Failed to fetch posts");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchPosts();
-  }, []);
+  }, [setPosts]);
 
   return (
-    <PostsContext.Provider value={{ posts, loading, error }}>
+    <PostsContext.Provider value={{ posts, loading, error, fetchPosts }}>
       {children}
     </PostsContext.Provider>
   );
