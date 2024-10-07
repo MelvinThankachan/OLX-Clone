@@ -4,7 +4,7 @@ import NotFound404Page from "./pages/NotFound404Page";
 import PostDetailsPage from "./pages/PostDetailsPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import {
-  createBrowserRouter,
+  createHashRouter,
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
@@ -30,7 +30,7 @@ const appRoutes: RouteObject[] = [
   },
 ];
 
-const appRouter = createBrowserRouter(appRoutes);
+const appRouter = createHashRouter(appRoutes);
 
 const App = () => (
   <PostsProvider>
